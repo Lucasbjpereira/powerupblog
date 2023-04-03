@@ -39,6 +39,8 @@ dependencies:
   flutter_web_auth: ^0.5.0
   intl: ^0.18.0
   html_unescape: ^2.0.0
+  webview_flutter: ^4.0.7
+  flutter_inappwebview: ^5.7.2+3
 
 dev_dependencies:
   flutter_test:

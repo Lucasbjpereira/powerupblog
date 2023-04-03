@@ -3,17 +3,22 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:power_up_blog/post_page.dart';
 import 'config.dart';
 
 class Blog {
   final String title;
   final String excerpt;
+  final String rendered;
   final String author;
   final String date;
+  final String img;
 
   Blog({
     required this.title,
     required this.excerpt,
+    required this.rendered,
+    required this.img,
     required this.author,
     required this.date,
   });
@@ -22,20 +27,26 @@ class Blog {
     return Blog(
       title: json['title']['rendered'],
       excerpt: json['excerpt']['rendered'],
-      author: '', // o nome do autor será adicionado depois
-      date: json['date'], // a data será adicionada no formato dd/mm/yyyy depois
+      rendered: json['content']['rendered'],
+      img: json['jetpack_featured_media_url'] ?? '',
+      author: '',
+      date: json['date'],
     );
   }
 
   Blog copyWith({
     String? title,
     String? excerpt,
+    String? rendered,
+    String? img,
     String? author,
     String? date,
   }) {
     return Blog(
       title: title ?? this.title,
       excerpt: excerpt ?? this.excerpt,
+      rendered: rendered ?? this.rendered,
+      img: img ?? this.img,
       author: author ?? this.author,
       date: date ?? this.date,
     );
@@ -54,13 +65,8 @@ class HomePageState extends State<HomePage> {
   late String token;
 
   Future<List<Blog>> fetchBlogs() async {
-    final response = await http.get(
-      Uri.parse(
-          'https://public-api.wordpress.com/wp/v2/sites/powerupblog3.wordpress.com/posts'),
-      headers: {
-        'Authorization': 'Bearer ${Config.wordpressToken}',
-      },
-    );
+    final response = await http.get(Uri.parse(
+        'https://public-api.wordpress.com/wp/v2/sites/powerupblog3.wordpress.com/posts'));
 
     if (response.statusCode == 200) {
       List<dynamic> body = json.decode(response.body);
@@ -117,18 +123,38 @@ class HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           final pubDate = DateFormat('dd/MM/yyyy').parse(blogs[index].date);
           final formattedDate = DateFormat('dd/MM/yyyy').format(pubDate);
-          return ListTile(
-            title: Text(blogs[index].title),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(htmlUnescape
-                    .convert(blogs[index].excerpt)
-                    .replaceAll(RegExp(r'<[^>]*>'), '')),
-                const SizedBox(height: 8),
-                Text(blogs[index].author),
-                Text(formattedDate),
-              ],
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      PostPage(rendered: blogs[index].rendered),
+                ),
+              );
+            },
+            child: ListTile(
+              title: Text(
+                htmlUnescape
+                    .convert(blogs[index].title)
+                    .replaceAll(RegExp(r'<[^>]*>'), ''),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  blogs[index].img.isEmpty
+                      ? const SizedBox.shrink()
+                      : Image.network(blogs[index].img),
+                  Text(
+                    htmlUnescape
+                        .convert(blogs[index].excerpt)
+                        .replaceAll(RegExp(r'<[^>]*>'), ''),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(blogs[index].author),
+                  Text(formattedDate),
+                ],
+              ),
             ),
           );
         },
