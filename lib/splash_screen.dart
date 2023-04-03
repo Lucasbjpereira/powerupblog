@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:power_up_blog/home.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -8,7 +7,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: HomePage(),
+        child: CircularProgressIndicator(),
       ),
     );
   }

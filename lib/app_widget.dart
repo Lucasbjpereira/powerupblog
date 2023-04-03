@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:power_up_blog/splash_screen.dart';
+import 'package:power_up_blog/home.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -8,7 +8,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: "PowerUp",
-      home: SplashPage(),
+      home: HomePage(),
     );
   }
 }
