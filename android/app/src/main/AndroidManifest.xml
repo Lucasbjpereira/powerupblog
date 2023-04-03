@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wordpress.powerupblog3">
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="power_up_blog"
         android:name="${applicationName}"

@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:power_up_blog/components/header.dart';
 import 'package:power_up_blog/post_page.dart';
 import 'config.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Blog {
   final String title;
   final String excerpt;
   final String rendered;
   final String author;
+  final String authorPhoto;
   final String date;
   final String img;
 
@@ -19,6 +24,7 @@ class Blog {
     required this.rendered,
     required this.img,
     required this.author,
+    required this.authorPhoto,
     required this.date,
   });
 
@@ -29,6 +35,7 @@ class Blog {
       rendered: json['content']['rendered'],
       img: json['jetpack_featured_media_url'] ?? '',
       author: '',
+      authorPhoto: '',
       date: json['date'],
     );
   }
@@ -39,6 +46,7 @@ class Blog {
     String? rendered,
     String? img,
     String? author,
+    String? authorPhoto,
     String? date,
   }) {
     return Blog(
@@ -47,6 +55,7 @@ class Blog {
       rendered: rendered ?? this.rendered,
       img: img ?? this.img,
       author: author ?? this.author,
+      authorPhoto: authorPhoto ?? this.authorPhoto,
       date: date ?? this.date,
     );
   }
@@ -92,11 +101,12 @@ class HomePageState extends State<HomePage> {
         final authorData = json.decode(authorResponse.body);
 
         // formata a data para o formato dd/mm/yyyy
-        final DateTime date = DateTime.parse(item['date']);
-        final formattedDate = "${date.day}/${date.month}/${date.year}";
+        DateTime date = DateTime.parse(item['date']);
+        String formattedDate = DateFormat('dd/MM/yyyy - HH:mm').format(date);
 
         return Blog.fromJson(item).copyWith(
           author: authorData['name'] ?? '',
+          authorPhoto: authorData['avatar_urls']['96'] ?? '',
           date: formattedDate,
         ); // retorna um objeto Blog atualizado com o nome do autor e a data formatada
       }).toList();
@@ -152,9 +162,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Power Up Blog'),
-      ),
+      appBar: const Header(),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _onRefresh,
@@ -171,67 +179,176 @@ class HomePageState extends State<HomePage> {
             return false;
           },
           child: ListView.builder(
-            itemCount: blogs.length + 1,
+            itemCount: isLastPage ? blogs.length : blogs.length + 1,
             itemBuilder: (BuildContext context, int index) {
               if (index == blogs.length) {
                 if (isLoading) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 32.0),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32.0),
                     child: Center(
-                      child: CircularProgressIndicator(),
+                      child: Column(
+                        children: [
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 20.0,
+                                    width: double.infinity,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Container(
+                                      height: 150,
+                                      width: double.infinity,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Container(
+                                    height: 20.0,
+                                    width: double.infinity,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  Container(
+                                    height: 20.0,
+                                    width: double.infinity,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  Container(
+                                    height: 20.0,
+                                    width: 200.0,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }
                 // índice extra para o indicador de carregamento
+                return const SizedBox(height: 80);
               } else {
                 final blog = blogs[index];
+                final rendered = HtmlUnescape()
+                    .convert(blog.rendered)
+                    .replaceAll(
+                      RegExp(
+                          r'(\n{2,})'), // encontra duas ou mais quebras de linha consecutivas
+                      '\n\n', // substitui por duas quebras de linha
+                    )
+                    .replaceAll(RegExp(r'<[^>]*>'), '');
+                final excerpt = HtmlUnescape()
+                    .convert(blog.excerpt)
+                    .replaceAll(RegExp(r'<[^>]*>'), '');
+                final title = HtmlUnescape()
+                    .convert(blog.title)
+                    .replaceAll(RegExp(r'<[^>]*>'), '');
                 return InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            PostPage(rendered: blogs[index].rendered),
+                        builder: (context) => PostPage(
+                          rendered: rendered,
+                          date: blog.date,
+                          author: blog.author,
+                          title: title,
+                          img: blog.img,
+                          authorPhoto: blog.authorPhoto,
+                        ),
                       ),
                     );
                   },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 16.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.network(blog.img),
-                        const SizedBox(height: 8.0),
                         Text(
-                          HtmlUnescape().convert(blog.title),
+                          title,
                           style: const TextStyle(
-                            fontSize: 18.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 8.0),
+                        const SizedBox(height: 10.0),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(1.0),
+                                spreadRadius: 2,
+                                blurRadius: 9,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: blog.img.isNotEmpty
+                                ? CachedNetworkImage(
+                                    imageUrl: blog.img,
+                                    placeholder: (context, url) => Center(
+                                      child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: const SizedBox(
+                                            height: 150,
+                                            width: double.infinity,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                    fit: BoxFit.cover,
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                        ),
+                        const SizedBox(height: 15.0),
                         Text(
-                          HtmlUnescape().convert(blog.excerpt),
+                          excerpt,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          'Por ${blog.author} em ${blog.date}',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey[600],
-                          ),
+                        const SizedBox(height: 10.0),
+                        Row(
+                          children: [
+                            Text(
+                              'Por ${blog.author} em ${blog.date}',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12.0,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 16.0),
+                        const SizedBox(height: 10.0),
                         const Divider(),
                       ],
                     ),
                   ),
                 );
               }
-              return null;
             },
           ),
         ),
