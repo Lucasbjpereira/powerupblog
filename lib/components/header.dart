@@ -26,7 +26,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           width: 120,
           height: 50,
           child: Image.asset(
-            'assets/imgs/R.png',
+            'assets/imgs/logotipo.png',
             fit: BoxFit.contain,
           ),
         ),
