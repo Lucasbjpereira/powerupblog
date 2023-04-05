@@ -15,16 +15,19 @@ Widget buildLoadingIndicator() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildPlaceholder(height: 20.0, width: double.infinity),
+                  _buildPlaceholder(
+                      height: 20.0, width: double.infinity, borderRadius: 10.0),
+                  const SizedBox(height: 10.0),
                   _buildPlaceholder(
                       height: 150.0,
                       width: double.infinity,
                       borderRadius: 10.0),
-                  _buildPlaceholder(height: 20.0, width: double.infinity),
                   const SizedBox(height: 10.0),
-                  _buildPlaceholder(height: 20.0, width: double.infinity),
+                  _buildPlaceholder(
+                      height: 20.0, width: double.infinity, borderRadius: 10.0),
                   const SizedBox(height: 10.0),
-                  _buildPlaceholder(height: 20.0, width: 200.0),
+                  _buildPlaceholder(
+                      height: 20.0, width: 200.0, borderRadius: 10.0),
                 ],
               ),
             ),

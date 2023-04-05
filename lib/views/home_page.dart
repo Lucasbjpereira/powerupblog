@@ -1,14 +1,11 @@
-import 'dart:convert';
 import 'package:power_up_blog/models/post_model.dart';
-import '../config.dart';
-import 'package:http/http.dart' as http;
+import 'package:power_up_blog/services/post_service.dart';
 import 'package:flutter/material.dart';
 import 'package:power_up_blog/components/header.dart';
 import 'package:power_up_blog/components/homepage/image_posts.dart';
 import 'package:power_up_blog/components/homepage/skeleton_post.dart';
 import 'package:power_up_blog/views/post_page.dart';
 import 'package:power_up_blog/utils/utils.dart';
-import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,9 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  final _postService = PostService();
   late List<Post> _posts;
   int _page = 1;
-  bool _isLoading = false;
+  bool _isLoading = true;
   bool _isLastPage = false;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
@@ -29,54 +27,20 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _posts = [];
-    _fetchPosts();
+    _isLoading = true;
+    _postService.fetchPosts(_page).then((fetchedPosts) => {
+          setState(() {
+            _updateState(fetchedPosts);
+          })
+        });
   }
 
-  Future<void> _fetchPosts() async {
+  void _updateState(List<Post> fetchedPosts) {
     setState(() {
-      _isLoading = true;
-    });
-
-    final response = await http.get(Uri.parse(
-        'https://public-api.wordpress.com/wp/v2/sites/powerupblog3.wordpress.com/posts?page=$_page'));
-
-    if (response.statusCode == 200) {
-      List<dynamic> body = json.decode(response.body);
-
-      // para cada postagem, faz uma solicitação para buscar as informações do autor correspondente
-      final futuresPosts = body.map<Future<Post>>((item) async {
-        final authorId = item['author'].toString();
-        final authorResponse = await http.get(
-          Uri.parse(
-              'https://public-api.wordpress.com/wp/v2/sites/powerupblog3.wordpress.com/users/$authorId'),
-          headers: {
-            'Authorization': 'Bearer ${Config.wordpressToken}',
-          },
-        );
-        final authorData = json.decode(authorResponse.body);
-
-        // formata a data para o formato dd/MM/yyyy
-        DateTime date = DateTime.parse(item['date']);
-        String formattedDate = DateFormat('dd/MM/yyyy - HH:mm').format(date);
-
-        return Post.fromJson(item).copyWith(
-          author: authorData['name'] ?? '',
-          authorPhoto: authorData['avatar_urls']['96'] ?? '',
-          date: formattedDate,
-        ); // retorna um objeto Post com o nome do autor, foto e a data da publicação formatada
-      }).toList();
-
-      List<Post> fetchedPosts = await Future.wait(futuresPosts);
-
       _isLastPage = fetchedPosts.length < 10;
-
-      setState(() {
-        _posts.addAll(fetchedPosts);
-        _isLoading = false;
-      });
-    } else {
-      throw Exception('Erro ao carregar os posts');
-    }
+      _posts.addAll(fetchedPosts);
+      _isLoading = false;
+    });
   }
 
   Future<void> _onRefresh() async {
@@ -86,8 +50,12 @@ class HomePageState extends State<HomePage> {
       _page = 1;
       _isLastPage = false;
     });
-
-    await _fetchPosts();
+    _isLoading = true;
+    await _postService.fetchPosts(_page).then((fetchedPosts) {
+      setState(() {
+        _updateState(fetchedPosts);
+      });
+    });
   }
 
 // Função para atualizar a lista de posts quando o usuário chegar ao final da página. (Páginação)
@@ -97,9 +65,10 @@ class HomePageState extends State<HomePage> {
         _isLoading = true;
       });
       _page++;
-      _fetchPosts().then((_) {
+      _isLoading = true;
+      _postService.fetchPosts(_page).then((fetchedPosts) {
         setState(() {
-          _isLoading = false;
+          _updateState(fetchedPosts);
         });
       });
     }
@@ -114,16 +83,14 @@ class HomePageState extends State<HomePage> {
         onRefresh: _onRefresh,
         child: NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification scrollInfo) {
-            if (_isLoading || _isLastPage || _posts.isEmpty) {
-              return false;
-            }
-
-            if (scrollInfo.metrics.pixels ==
-                scrollInfo.metrics.maxScrollExtent) {
+            if (!_isLoading &&
+                !_isLastPage &&
+                _posts.isNotEmpty &&
+                scrollInfo.metrics.pixels ==
+                    scrollInfo.metrics.maxScrollExtent) {
               _updatePosts();
               return true;
             }
-
             return false;
           },
           child: ListView.builder(
@@ -160,7 +127,8 @@ class HomePageState extends State<HomePage> {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 26.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -187,7 +155,7 @@ class HomePageState extends State<HomePage> {
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 12.0,
-                                color: Colors.red,
+                                color: Color.fromARGB(255, 134, 134, 134),
                               ),
                             ),
                           ],
