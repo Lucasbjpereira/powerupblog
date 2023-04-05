@@ -24,6 +24,8 @@ Antes de comenzar, asegúrese de que las siguientes herramientas estén instalad
 
 #### Generando un archivo APK 📦
 
+>Si desea descargar el apk directamente, vaya a [Release](https://github.com/Lucasbjpereira/powerupblog/releases/tag/release) para descargarlo.
+
 Para generar un archivo APK a partir de un proyecto Flutter existente, siga estos pasos:
 
 1. Abra la terminal y navegue hasta el directorio del proyecto Flutter usando el comando `cd /path/to/project`.
@@ -39,20 +41,24 @@ Para generar un archivo APK a partir de un proyecto Flutter existente, siga esto
 6. Ejecute el comando `flutter run -d <device-id>` para instalar y ejecutar la aplicación en el dispositivo Android conectado.
 
 #### Generando un archivo IPA 📦
+>Si desea descargar el .ipa directamente, vaya a [Release](https://github.com/Lucasbjpereira/powerupblog/releases/tag/release) para descargarlo.
+
+>**Nota:** Dado que la aplicación aún no está en la App Store, para que el .ipa se instale a través de la descarga en sitios externos, el .ipa debe cargarse en sitios de _Desarrollo e internos_ como [Diawi] ( https://www.diawi.com/) por ejemplo.
 
 Para generar un archivo IPA a partir de un proyecto Flutter existente, siga estos pasos:
 
 1. Abra la terminal y navegue hasta el directorio del proyecto Flutter usando el comando `cd /path/to/project`.
 
-2. Ejecute el comando `flutter build ios`. Esto compilará la aplicación y generará un archivo IPA en el directorio `build/ios/archive`.
+2. Ejecute el comando `flutter build ios`. Esto compilará la aplicación y generará un archivo IPA en el directorio `build/ios/archive` (si no funciona, asegúrese de que todas las dependencias de Flutter estén instaladas. Para verificar, ejecute `flutter doctor` en la terminal).
+_Nota: Asegúrate de tener la cuenta de desarrollador activada en xcode_.
 
-3. Abra el archivo `.xcworkspace` que se generó en el paso anterior en Xcode.
+3. Conecte un dispositivo iOS a la computadora usando un cable USB.
 
-4. Conecte un dispositivo iOS a la computadora usando un cable USB.
+4. Ejecute el comando `flutter devices` para enumerar los dispositivos Android conectados.
 
-5. En Xcode, seleccione el dispositivo iOS conectado como destino de lanzamiento.
+5. Identifique la identificación del dispositivo Android que desea usar para ejecutar la aplicación.
 
-6. Haga clic en el botón "Ejecutar" para instalar y ejecutar la aplicación en el dispositivo iOS.
+6. Ejecute el comando `flutter run -d <device-id>` para instalar y ejecutar la aplicación en el dispositivo Android conectado.
 
 Si tiene alguna pregunta o sugerencia, no dude en crear un _problema_ o enviar una _solicitud de extracción_.
 
@@ -62,4 +68,4 @@ Si te gustó este proyecto, deja un ⭐️ para apoyarlo.
 
 <br><br>
 
->_Hecho con :corazón: por Lucas Pereira_
+>_Made with :heart: by Lucas Pereira_
