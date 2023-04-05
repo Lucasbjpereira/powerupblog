@@ -6,11 +6,11 @@ Este é um aplicativo Flutter que tem como objetivo listar os posts do blog [Pow
 
 Para a comunicação com a API, é utilizado o pacote [`http`](https://pub.dev/packages/http) 🌐. Além disso, para exibir as imagens dos posts em cache, assim evitando o atraso na exibição das mesmas, é utilizado o pacote [`cached_network_image`](https://pub.dev/packages/cached_network_image) 📸. O pacote [`shimmer`](https://pub.dev/packages/shimmer) ✨ é utilizado para exibir um efeito de loading (conhecido também  como "**Skeleton**") enquanto os dados são carregados.
 
-A classe **HomePage** é um StatefulWidget que representa a tela inicial do aplicativo. Nessa tela, é exibida uma lista de blogs, sendo que cada item é representado por um `Card`. Ao final da lista, é exibido um efeito de loading (utilizando o `shimmer`) enquanto novos blogs são carregados. O usuário pode atualizar a lista de blogs através do gesto de "puxar para baixo".
+A classe **HomePage** é um StatefulWidget que representa a tela inicial do aplicativo. Nessa tela, é exibida uma lista de posts, sendo que cada item é representado por um `Card`. Ao final da lista, é exibido um efeito de loading (utilizando o `shimmer`) enquanto novos posts são carregados. O usuário pode atualizar a lista de posts através do gesto de "puxar para baixo".
 
-O método `fetchBlogs` é responsável por buscar os dados na API e atualizar a lista de blogs exibidos na tela. A cada vez que o usuário chega ao final da lista, é feita uma nova requisição para buscar mais blogs (se houver).
+O método `fetchPosts` é responsável por buscar os dados na API e atualizar a lista de posts exibidos na tela. A cada vez que o usuário chega ao final da lista, é feita uma nova requisição para buscar mais posts (se houver).
 
-Por fim, a tela de detalhes de um blog específico é exibida através da classe `PostPage`. Nessa tela, é exibido o **título** e o **conteúdo** do blog selecionado. Além disso, são exibidas informações adicionais, como o **nome do autor** e a **data de publicação**. A imagem principal do blog é exibida em um [`Hero widget`](https://docs.flutter.dev/development/ui/animations/hero-animations), permitindo uma animação suave entre a transição de telas. 🚀
+Por fim, a tela de detalhes de um post específico é exibida através da classe `PostPage`. Nessa tela, é exibido o **título** e o **conteúdo** do post selecionado. Além disso, são exibidas informações adicionais, como o **nome do autor** e a **data de publicação**. A imagem principal do post é exibida em um [`Hero widget`](https://docs.flutter.dev/development/ui/animations/hero-animations), permitindo uma animação suave entre a transição de telas. 🚀
 
 ## Como gerar o APK ou .IPA do projeto
 
@@ -26,7 +26,7 @@ Antes de começar, certifique-se de que as seguintes ferramentas estejam instala
 
 >Caso queira baixar o apk direto, entre na [Release](https://github.com/Lucasbjpereira/powerupblog/releases/tag/release) para fazer o download.
 
-Para gerar um arquivo APK de um projeto Flutter existente, siga estas etapas:
+Para gerar um arquivo APK do projeto, siga estas etapas:
 
 1. Abra o terminal e navegue até o diretório do projeto Flutter usando o comando `cd /path/to/project`.
 
@@ -45,7 +45,7 @@ Para gerar um arquivo APK de um projeto Flutter existente, siga estas etapas:
 
 >**Obs:** Já que o app ainda não está na App Store, para o .ipa ser instalado via download em sites externos, o .ipa precisa ser upado em sites de _Development & In-house_ como o [Diawi](https://www.diawi.com/) por exemplo.
 
-Para gerar um arquivo IPA de um projeto Flutter existente, siga estas etapas:
+Para gerar um arquivo IPA do projeto, siga estas etapas:
 
 1. Abra o terminal e navegue até o diretório do projeto Flutter usando o comando `cd /path/to/project`.
 

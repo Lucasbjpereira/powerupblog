@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:power_up_blog/home.dart';
+import 'package:power_up_blog/views/home_page.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   @override
