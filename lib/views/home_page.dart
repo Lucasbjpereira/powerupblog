@@ -98,7 +98,7 @@ class HomePageState extends State<HomePage> {
             itemBuilder: (BuildContext context, int index) {
               if (index == _posts.length) {
                 if (_isLoading) {
-                  return buildLoadingIndicator();
+                  return skeleton();
                 }
                 return const SizedBox(height: 80);
               } else {

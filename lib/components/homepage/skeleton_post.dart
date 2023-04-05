@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget buildLoadingIndicator() {
+Widget skeleton() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 32.0),
     child: Center(
@@ -15,18 +15,18 @@ Widget buildLoadingIndicator() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildPlaceholder(
+                  _skeletonPlaceholder(
                       height: 20.0, width: double.infinity, borderRadius: 10.0),
                   const SizedBox(height: 10.0),
-                  _buildPlaceholder(
+                  _skeletonPlaceholder(
                       height: 150.0,
                       width: double.infinity,
                       borderRadius: 10.0),
                   const SizedBox(height: 10.0),
-                  _buildPlaceholder(
+                  _skeletonPlaceholder(
                       height: 20.0, width: double.infinity, borderRadius: 10.0),
                   const SizedBox(height: 10.0),
-                  _buildPlaceholder(
+                  _skeletonPlaceholder(
                       height: 20.0, width: 200.0, borderRadius: 10.0),
                 ],
               ),
@@ -38,7 +38,7 @@ Widget buildLoadingIndicator() {
   );
 }
 
-Widget _buildPlaceholder(
+Widget _skeletonPlaceholder(
     {required double height,
     required double width,
     double borderRadius = 0.0}) {
