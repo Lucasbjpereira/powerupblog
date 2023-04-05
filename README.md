@@ -66,6 +66,7 @@ Se você gostou deste projeto, por favor, deixe uma ⭐️ para apoiá-lo.
 
 Obrigado novamente por seu interesse e espero vê-lo em breve! 👋
 
-<br><br>
+>_Criado durante o processo seletivo da [_ModalGR_](https://modalgr.com.br/)_
 
->_Made with :heart: by Lucas Pereira_
+<br><br>
+_Made with :heart: by Lucas Pereira_

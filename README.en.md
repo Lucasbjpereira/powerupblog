@@ -65,5 +65,8 @@ If you have any questions or suggestions, feel free to create an _issue_ or subm
 If you liked this project, please leave a ⭐️ to support it.
 
 Thanks again for your interest and hope to see you soon! 👋
+
+>_Created during the selection process of [_ModalGR_](https://modalgr.com.br/)_
+
 <br><br>
->_Made with :heart: by Lucas Pereira_
+_Made with :heart: by Lucas Pereira_
