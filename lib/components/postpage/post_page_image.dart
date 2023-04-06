@@ -1,6 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+/*
+* @description Constrói a imagem da página do post.
+* @param String img: imagem do post em formato de URL.
+* @return: Widget da imagem da página do post.
+*/
 Widget postPageImage(String img) {
   return Container(
     decoration: BoxDecoration(
@@ -28,6 +33,10 @@ Widget postPageImage(String img) {
   );
 }
 
+/*
+* @description Constrói o placeholder da imagem do post.
+* @return: Widget do placeholder da imagem do post.
+*/
 Widget _postImagePlaceholder() {
   return Center(
     child: ClipRRect(

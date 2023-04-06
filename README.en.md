@@ -6,11 +6,11 @@ This is a Flutter app that aims to list the blog posts [Power Up](https://poweru
 
 For communication with the API, the package [`http`](https://pub.dev/packages/http) 🌐 is used. In addition, to display the images of cached posts, thus avoiding the delay in displaying them, the package [`cached_network_image`](https://pub.dev/packages/cached_network_image) 📸 is used. The [`shimmer`](https://pub.dev/packages/shimmer) ✨ package is used to display a loading effect (also known as "**Skeleton**") while data is being loaded.
 
-The **HomePage** class is a StatefulWidget that represents the application's home screen. On this screen, a list of posts is displayed, each item represented by a `Card`. At the end of the list, a loading effect (using `shimmer`) is displayed while new posts are loaded. The user can update the list of posts through the "pull down" gesture.
+The **HomePage** class is a StatefulWidget that represents the application's home screen. At the end of the list, a loading effect (using `shimmer`) is displayed while new posts are loaded. The user can update the list of posts through the "pull down" gesture.
 
 The `fetchPosts` method is responsible for fetching data from the API and updating the list of posts displayed on the screen. Each time the user reaches the end of the list, a new request is made to fetch more posts (if any).
 
-Finally, the detail screen of a specific post is displayed through the `PostPage` class. On this screen, the **title** and **content** of the selected post are displayed. In addition, additional information is displayed, such as **author's name** and **publication date**. The main post image is displayed in a [`Hero widget`](https://docs.flutter.dev/development/ui/animations/hero-animations), allowing for smooth animation between screen transitions. 🚀
+Finally, the detail screen of a specific post is displayed through the `PostPage` class. On this screen, the **title** and **content** of the selected post are displayed. In addition, additional information is displayed, such as **author's name** and **publication date**. 🚀
 
 ## How to generate the project's APK or .IPA
 

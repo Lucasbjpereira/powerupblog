@@ -2,6 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+/*
+* @description Retorna um widget que exibe uma imagem de post.
+* @param String imageUrl: URL da imagem do post.
+* @return Widget da imagem do post.
+*/
 Widget imagePost(String imageUrl) {
   return Container(
     decoration: BoxDecoration(
@@ -29,6 +34,10 @@ Widget imagePost(String imageUrl) {
   );
 }
 
+/*
+* @description Retorna um widget de imagem em cache para exibição enquanto a imagem do post está sendo carregada.
+* @return Widget de imagem em cache.
+*/
 Widget _imagePostPlaceholder() {
   return Center(
     child: Shimmer.fromColors(

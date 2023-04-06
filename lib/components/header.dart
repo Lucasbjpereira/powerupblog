@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:power_up_blog/views/home_page.dart';
 
+/*
+* @description Classe que representa o cabeçalho do aplicativo.
+* @param Size preferredSize: tamanho preferred, utilizado pelo framework Flutter para calcular a altura do AppBar.
+* @param width: largura do widget.
+* @param borderRadius: raio de borda do widget.
+* @return widget do skeleton.
+*/
 class Header extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;

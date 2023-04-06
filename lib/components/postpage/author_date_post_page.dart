@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/*
+* @description Retorna o widget que exibe o autor, foto do autor e a data da postagem na página do post.
+* @param String author: Nome do autor do post.
+* @param String authorPhoto: URL da foto do autor.
+* @param String date: Data do post.
+* @return: Widget que exibe o autor, foto do autor e a data da postagem na página do post.
+*/
 Widget authorDatePostPage(String author, String authorPhoto, String date) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,

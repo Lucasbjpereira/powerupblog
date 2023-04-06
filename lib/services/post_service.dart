@@ -4,6 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:power_up_blog/config.dart';
 import 'package:power_up_blog/models/post_model.dart';
 
+/*
+* @description Busca uma lista de posts a partir da página fornecida.
+* @param int page: Número da página a ser buscada.
+* @return List<Post> fetchedPosts: Uma lista de objetos Post.
+*/
 class PostService {
   Future<List<Post>> fetchPosts(int page) async {
     final response = await http.get(Uri.parse(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+/*
+* @description Retorna um widget do skeleton para ser exibido enquanto o conteúdo da tela está sendo carregado.
+* @return Widget do skeleton.
+*/
 Widget skeleton() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -38,6 +42,13 @@ Widget skeleton() {
   );
 }
 
+/*
+* @description Retorna um widget do skeleton para ser exibido enquanto o conteúdo da tela está sendo carregado.
+* @param double height: Altura do widget.
+* @param double width: Largura do widget.
+* @param double borderRadius: Raio de borda do widget.
+* @return Widget do placeholder do skeleton.
+*/
 Widget _skeletonPlaceholder(
     {required double height,
     required double width,

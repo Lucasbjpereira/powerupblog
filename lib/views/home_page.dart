@@ -7,6 +7,10 @@ import 'package:power_up_blog/components/homepage/skeleton_post.dart';
 import 'package:power_up_blog/views/post_page.dart';
 import 'package:power_up_blog/utils/utils.dart';
 
+/*
+* @description Constrói a interface da página inicial, que exibe uma lista de posts.
+* @return: widget da interface da página inicial.
+*/
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -14,6 +18,9 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
+/*
+* @description Estado da página inicial, que gerencia a exibição e recuperação de posts.
+*/
 class HomePageState extends State<HomePage> {
   final _postService = PostService();
   late List<Post> _posts;
@@ -35,6 +42,11 @@ class HomePageState extends State<HomePage> {
         });
   }
 
+  /*
+  * @description Atualiza o estado da lista de posts após recuperar novos posts do servidor.
+  * @param List<Post>fetchedPosts: lista de posts recuperados.
+  * @return void
+  */
   void _updateState(List<Post> fetchedPosts) {
     setState(() {
       _isLastPage = fetchedPosts.length < 10;
@@ -43,8 +55,12 @@ class HomePageState extends State<HomePage> {
     });
   }
 
+  /*
+  * @description Limpa e atualiza a lista de posts.
+  * @param void
+  * @return void
+  */
   Future<void> _onRefresh() async {
-    // Limpa a lista de posts antes de carregar novos dados
     setState(() {
       _posts = [];
       _page = 1;
@@ -58,7 +74,11 @@ class HomePageState extends State<HomePage> {
     });
   }
 
-// Função para atualizar a lista de posts quando o usuário chegar ao final da página. (Páginação)
+  /*
+  * @description Atualiza a lista de posts quando o usuário chegar ao final da página (paginação).
+  * @param void
+  * @return void
+  */
   void _updatePosts() {
     if (!_isLoading && !_isLastPage) {
       setState(() {

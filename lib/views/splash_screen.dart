@@ -2,6 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:power_up_blog/views/home_page.dart';
 
+/*
+* @description Constrói a interface da tela de SplashScreen.
+* @param key: chave para identificação do widget.
+* @return: Widget da interface da tela SplashScreen.
+*/
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -10,6 +15,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+  /*
+  * @description Navega para a HomePage após 3 segundos.
+  * @return void
+  */
   @override
   void initState() {
     super.initState();

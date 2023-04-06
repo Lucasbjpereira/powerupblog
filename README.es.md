@@ -6,11 +6,11 @@ Esta es una aplicación de Flutter que tiene como objetivo enumerar las publicac
 
 Para la comunicación con la API se utiliza el paquete [`http`](https://pub.dev/packages/http) 🌐. Además, para mostrar las imágenes de las publicaciones en caché, evitando así la demora en mostrarlas, se utiliza el paquete [`cached_network_image`](https://pub.dev/packages/cached_network_image) 📸. El paquete [`shimmer`](https://pub.dev/packages/shimmer) ✨ se usa para mostrar un efecto de carga (también conocido como "**Skeleton**") mientras se cargan los datos.
 
-La clase **HomePage** es un StatefulWidget que representa la pantalla de inicio de la aplicación. En esta pantalla, se muestra una lista de posts, cada elemento representado por una 'Tarjeta'. Al final de la lista, se muestra un efecto de carga (usando `shimmer`) mientras se cargan nuevos posts. El usuario puede actualizar la lista de posts mediante el gesto de "desplegar".
+La clase **HomePage** es un StatefulWidget que representa la pantalla de inicio de la aplicación. Al final de la lista, se muestra un efecto de carga (usando `shimmer`) mientras se cargan nuevos posts. El usuario puede actualizar la lista de posts mediante el gesto de "desplegar".
 
 El método `fetchPosts` es responsable de obtener datos de la API y actualizar la lista de posts que se muestran en la pantalla. Cada vez que el usuario llega al final de la lista, se realiza una nueva solicitud para buscar más posts (si los hay).
 
-Finalmente, la pantalla de detalles de un post específico se muestra a través de la clase `PostPage`. En esta pantalla se muestran el **título** y el **contenido** del post seleccionado. Además, se muestra información adicional, como **nombre del autor** y **fecha de publicación**. La imagen principal del post se muestra en un [`Hero widget`](https://docs.flutter.dev/development/ui/animations/hero-animations), lo que permite una animación fluida entre las transiciones de pantalla. 🚀
+Finalmente, la pantalla de detalles de un post específico se muestra a través de la clase `PostPage`. En esta pantalla se muestran el **título** y el **contenido** del post seleccionado. Además, se muestra información adicional, como **nombre del autor** y **fecha de publicación**. 🚀
 
 ## Cómo generar el APK o .IPA del proyecto
 
