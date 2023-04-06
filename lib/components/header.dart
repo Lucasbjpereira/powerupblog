@@ -24,7 +24,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: InkWell(
         onTap: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),
           );
