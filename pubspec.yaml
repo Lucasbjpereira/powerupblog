@@ -1,5 +1,8 @@
+# Author: Lucas Pereira
+# E-mail: lucasbarbosaj.pereira@gmail.com
+
 name: power_up_blog
-description: A new Flutter project.
+description: Este é um aplicativo Flutter que tem como objetivo listar os posts do blog Power Up provenientes da API do WordPress.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

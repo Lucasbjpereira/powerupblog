@@ -26,6 +26,8 @@ Before you begin, make sure the following tools are installed on your machine:
 
 >If you want to download the apk directly, go to [Release](https://github.com/Lucasbjpereira/powerupblog/releases/tag/release) to download it.
 
+>Note: Make sure you have the option to install apps from unknown sources enabled on your Android device.
+
 To generate a project APK file, follow these steps:
 
 1. Open the terminal and navigate to the Flutter project directory using the `cd /path/to/project` command.
@@ -43,7 +45,9 @@ To generate a project APK file, follow these steps:
 #### Generating an IPA file 📦
 >If you want to download the .ipa directly, go to [Release](https://github.com/Lucasbjpereira/powerupblog/releases/tag/release) to download it.
 
->**Note:** Since the app is not yet on the App Store, for the .ipa to be installed via download on external sites, the .ipa needs to be uploaded on _Development & In-house_ sites such as [Diawi]( https://www.diawi.com/) for example.
+>**Note:** Since the app is not yet on the App Store, for the .ipa to be installed via download on external sites, the .ipa needs to be uploaded on _Development & In-house_ sites such as [Diawi]( https://www.diawi.com/) for example. 
+
+>And for that, make sure you have the option to install apps from unknown sources enabled on your IOS device.
 
 To generate a project IPA file, follow these steps:
 
