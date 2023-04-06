@@ -43,7 +43,7 @@ Para gerar um arquivo APK do projeto, siga estas etapas:
 #### Gerando um arquivo IPA 📦
 >Caso queira baixar o .ipa direto, entre na [Release](https://github.com/Lucasbjpereira/powerupblog/releases/tag/release) para fazer o download.
 
->**Obs:** Já que o app ainda não está na App Store, para o .ipa ser instalado via download em sites externos, o .ipa precisa ser upado em sites de _Development & In-house_ como o [Diawi](https://www.diawi.com/) por exemplo.
+>**Obs:** Já que o app ainda não está na App Store, para o .ipa ser instalado via download em sites externos, o .ipa precisa ser enviado em sites de _Development & In-house_ como o [Diawi](https://www.diawi.com/) por exemplo.
 
 Para gerar um arquivo IPA do projeto, siga estas etapas:
 
