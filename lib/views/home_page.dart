@@ -35,11 +35,9 @@ class HomePageState extends State<HomePage> {
     super.initState();
     _posts = [];
     _isLoading = true;
-    _postService.fetchPosts(_page).then((fetchedPosts) => {
-          setState(() {
-            _updateState(fetchedPosts);
-          })
-        });
+    _postService
+        .fetchPosts(_page)
+        .then((fetchedPosts) => {_updateState(fetchedPosts)});
   }
 
   /*
@@ -68,9 +66,7 @@ class HomePageState extends State<HomePage> {
     });
     _isLoading = true;
     await _postService.fetchPosts(_page).then((fetchedPosts) {
-      setState(() {
-        _updateState(fetchedPosts);
-      });
+      _updateState(fetchedPosts);
     });
   }
 
@@ -85,11 +81,8 @@ class HomePageState extends State<HomePage> {
         _isLoading = true;
       });
       _page++;
-      _isLoading = true;
       _postService.fetchPosts(_page).then((fetchedPosts) {
-        setState(() {
-          _updateState(fetchedPosts);
-        });
+        _updateState(fetchedPosts);
       });
     }
   }
@@ -171,7 +164,7 @@ class HomePageState extends State<HomePage> {
                         Row(
                           children: [
                             Text(
-                              getPostAuthorAndDate(post),
+                              'Por ${post.author} em ${post.date}',
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 12.0,

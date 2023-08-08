@@ -7,7 +7,3 @@ String removeHtmlTagsAndConvertSpecialCharacters(String text) {
       .replaceAll(RegExp(r'(\n{2,})'), '\n\n')
       .replaceAll(RegExp(r'<[^>]*>'), '');
 }
-
-String getPostAuthorAndDate(Post post) {
-  return 'Por ${post.author} em ${post.date}';
-}
